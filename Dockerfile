@@ -1,4 +1,9 @@
 FROM eclipse-temurin:21-jdk-jammy AS build
+
+ENV HTTP_PROXY=http://192.168.39.131:80
+ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV NO_PROXY=localhost,127.0.0.1
+
 WORKDIR /app
 
 COPY gradle/ gradle/

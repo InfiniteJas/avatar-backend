@@ -67,7 +67,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter")
 
-    implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.43.0")
 }
 tasks.withType<Test> {
     useJUnitPlatform()
