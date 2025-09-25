@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: SDU Chat bot layer
+  servlet:
+    multipart:
+      max-file-size: 100MB
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sdu_chats
+    username: postgres
+    password: postgres
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog-master.xml
+
+springdoc:
+  api-docs.path: /api-docs
+  api-docs:
+    enabled: ${SWAGGER_SHOW:true}
+
+server:
+  port: 9090
+  tomcat:
+    use-relative-redirects: true
+
+chat:
+  base-url: ${CHAT_BASE_URL:https://nitec-ai.kz/api}        # OpenAI-compatible host
+  api-key:  ${CHAT_API_KEY:sk-196c1fe7e5be40b2b7b42bc235c49147}                        # Bearer <token>
+  model:    ${CHAT_MODEL:gpt-4o-mini}                       # Any OpenAI-compatible model id
+  timeout-ms: 30000
+
+azure:
+  speech:
+    key: ${AZURE_SPEECH_KEY:FBx0qou5mQpzUs5cW4itbIk42WlgAj8TpmAjbw5uXPDhp5ckYg2QJQQJ99BIACHYHv6XJ3w3AAABACOGYhoG}
+    region: ${AZURE_SPEECH_REGION:westeurope}      # e.g., eastus, westeurope, etc.
+    # private endpoint support (optional) like in your JS (stt.speech.universal/v2 ws):
+    private-endpoint-enabled: ${AZURE_SPEECH_PRIVATE_ENDPOINT_ENABLED:false}
+    private-endpoint: ${AZURE_SPEECH_PRIVATE_ENDPOINT:https://a-ass55.openai.azure.com/}  # e.g., mycustresouce.cognitiveservices.azure.com
+    # CSV of candidate locales for auto language ID (like sttLocales in your JS)
+    locales: ${AZURE_SPEECH_LOCALES:en-US,ru-RU,kk-KZ}

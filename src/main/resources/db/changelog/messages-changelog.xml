@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="init-message-table" author="aisen">
+        <!-- ========== messages ========== -->
+        <createTable tableName="messages">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" primaryKeyName="pk_messages"/>
+            </column>
+
+            <column name="chat_id" type="bigint">
+                <constraints nullable="false"
+                             referencedTableName="chats"
+                             referencedColumnNames="id"
+                             foreignKeyName="fk_messages_to_chat"/>
+
+            </column>
+
+            <!-- Enum stored as STRING -->
+            <column name="role" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="content" type="varchar(8000)"/>
+
+            <column name="created_at" type="timestamp with time zone" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

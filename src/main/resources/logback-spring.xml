@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <charset>UTF-8</charset>
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>false</prettyPrint>
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ</timestampFormat>
+                <appendLineSeparator>true</appendLineSeparator>
+                <includeContextName>true</includeContextName>
+                <includeMDC>true</includeMDC>
+            </layout>
+        </encoder>
+    </appender>
+
+    <appender name="simpleConsole" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-20(%green(%d{HH:mm:ss.SSS}) [%thread] [%mdc]) %highlight(%-5level) %cyan(%-40.40logger{40}) %X{executionId} %boldWhite(-) %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="kz.nitec.azrkinvestigation" level="trace" additivity="false">
+        <appender-ref ref="${LOG_TYPE:-simpleConsole}"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="${LOG_TYPE:-simpleConsole}"/>
+    </root>
+
+</configuration>

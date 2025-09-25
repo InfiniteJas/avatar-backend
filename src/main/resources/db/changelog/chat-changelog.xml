@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="init-chat-table" author="aisen">
+        <!-- ========== chats ========== -->
+        <createTable tableName="chats">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true" primaryKeyName="pk_chats"/>
+            </column>
+
+            <column name="title" type="varchar(1000)"/>
+
+            <!-- OffsetDateTime -> timestamptz -->
+            <column name="created_at" type="timestamp with time zone" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp with time zone"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
