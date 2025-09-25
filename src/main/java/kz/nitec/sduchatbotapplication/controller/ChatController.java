@@ -6,6 +6,7 @@ import kz.nitec.sduchatbotapplication.dto.MessageDto;
 import kz.nitec.sduchatbotapplication.dto.ResponseMessageDto;
 import kz.nitec.sduchatbotapplication.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,7 @@ public class ChatController {
         return chatService.createChat(firstMessage);
     }
 
-    @PostMapping("/audio")
+    @PostMapping(value = "/audio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ChatDto createChatViaAudio(@RequestBody MultipartFile firstAudio){
         return chatService.createChatViaAudio(firstAudio);
     }
@@ -47,7 +48,7 @@ public class ChatController {
         return chatService.createMessage(id, request);
     }
 
-    @PutMapping("/{id}/messages/audio")
+    @PutMapping(value = "/{id}/messages/audio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseMessageDto createMessageViaAudio(@PathVariable Long id, @RequestBody MultipartFile audioRequest){
         return chatService.createMessageViaAudio(id, audioRequest);
     }

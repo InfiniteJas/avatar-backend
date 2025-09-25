@@ -1,0 +1,33 @@
+variables:
+  GIT_STRATEGY: fetch
+  GIT_CHECKOUT: fetch
+  GIT_CLEAN_FLAGS: none
+  COMPOSE_INTERACTIVE_NO_CLI: "1"
+  COMPOSE_PROJECT_NAME: "sdu-chatbot-backend"
+  FORCE_CLEAN:
+    value: "false"
+    description: "Perform `git clean` and `gradle clean` before building"
+  FORCE_DEPLOY_ONLY:
+    value: 'false'
+    description: 'Set true, when required deploy only (without dockerize stage)'
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
+
+stages:
+  - deploy
+
+deploy:dev:
+  tags:
+    - azrk.test.runner
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH != "develop"
+      when: manual
+  script:
+    - git clean -fdx
+    - docker compose build
+    - docker compose up -d --remove-orphans
