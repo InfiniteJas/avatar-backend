@@ -1,6 +1,5 @@
 package kz.nitec.sduchatbotapplication.controller;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import kz.nitec.sduchatbotapplication.dto.ChatDto;
 import kz.nitec.sduchatbotapplication.dto.MessageDto;
 import kz.nitec.sduchatbotapplication.dto.ResponseMessageDto;

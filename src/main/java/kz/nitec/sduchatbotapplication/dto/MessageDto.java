@@ -12,6 +12,7 @@ import java.time.OffsetDateTime;
 public class MessageDto {
     private Long id;
     private String content;
+    private String runId;
 
     private MessageEntity.Role role;
     private OffsetDateTime createdAt;

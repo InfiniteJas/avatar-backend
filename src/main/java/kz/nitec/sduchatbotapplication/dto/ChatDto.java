@@ -11,6 +11,7 @@ import java.time.OffsetDateTime;
 public class ChatDto {
     private Long Id;
     private String title;
+    private String threadId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }
