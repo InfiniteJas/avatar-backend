@@ -24,13 +24,7 @@ configurations {
 }
 
 repositories {
-    mavenCentral{
-        metadataSources {
-            mavenPom()
-            artifact()
-            ignoreGradleMetadataRedirection() // важная строка
-        }
-    }
+    mavenCentral()
 }
 
 dependencies {
