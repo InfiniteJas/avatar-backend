@@ -1,6 +1,5 @@
 FROM eclipse-temurin:21-jdk-jammy AS build
 
-RUN apk add --no-cache ca-certificates curl && update-ca-certificates
 
 ENV HTTP_PROXY=http://192.168.39.131:80
 ENV HTTPS_PROXY=http://192.168.39.131:80
