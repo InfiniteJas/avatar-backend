@@ -12,6 +12,9 @@ RUN chmod +x gradlew
 RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon --version
 
 COPY src ./src
+ENV HTTP_PROXY=http://192.168.39.131:80
+ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV NO_PROXY=localhost,127.0.0.1
 RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon clean bootJar -x test
 
 ############################
@@ -32,4 +35,7 @@ ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 9090
 USER appuser:appuser
 
+ENV HTTP_PROXY=http://192.168.39.131:80
+ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV NO_PROXY=localhost,127.0.0.1
 ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar /app/app.jar"]
