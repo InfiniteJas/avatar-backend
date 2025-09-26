@@ -1,21 +1,16 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:15
-    container_name: sdu-postgres
     environment:
       POSTGRES_DB: sdu_chats
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-#    ports:
-#      - "5432:5432"
+    # Внешний порт не публикуем
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database-init:/docker-entrypoint-initdb.d
-    networks:
-      - sdu-back-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d sdu_chats"]
       interval: 10s
@@ -24,23 +19,19 @@ services:
 
   app:
     build: .
-    container_name: sdu-app
+    # Внешний порт Railway -> внутренний 9090
     ports:
-      - "9090:9090"
+      - "${PORT:-9090}:9090"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sdu_chats
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      # Передаём порт приложению
+      SERVER_PORT: "${PORT:-9090}"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/sdu_chats"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "postgres"
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      sdu-back-network: { }
 
 volumes:
   postgres_data:
     driver: local
-
-networks:
-  sdu-back-network:
-    driver: bridge
