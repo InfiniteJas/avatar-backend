@@ -25,8 +25,8 @@ services:
   app:
     build: .
     container_name: sdu-app
-#    ports:
-#      - "9090:9090"
+    ports:
+      - "9090:9090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sdu_chats
       SPRING_DATASOURCE_USERNAME: postgres
@@ -36,9 +36,7 @@ services:
         condition: service_healthy
     networks:
       sdu-back-network: { }
-      ndbazrk.intranet:
-        aliases:
-          - sduchatbotapi  # for YARP route http://sduchatbot:9090/
+
 volumes:
   postgres_data:
     driver: local
@@ -46,6 +44,3 @@ volumes:
 networks:
   sdu-back-network:
     driver: bridge
-  ndbazrk.intranet:
-    external: true
-    name: ndbazrk.intranet
