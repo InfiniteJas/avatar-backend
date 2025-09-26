@@ -67,7 +67,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter")
 
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:3.5.3")
 }
 tasks.withType<Test> {
     useJUnitPlatform()
