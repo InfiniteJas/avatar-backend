@@ -2,8 +2,15 @@ FROM eclipse-temurin:21-jdk-jammy AS build
 
 
 ENV HTTP_PROXY=http://192.168.39.131:80
+ENV http_proxy=http://192.168.39.131:80
 ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV https_proxy=http://192.168.39.131:80
 ENV NO_PROXY=localhost,127.0.0.1
+ENV no_proxy=localhost,127.0.0.1
+
+# 2) Make sure Gradle (JVM) also sees the proxy even if it ignores ~/.gradle
+ENV GRADLE_OPTS="-Dhttp.proxyHost=192.168.39.131 -Dhttp.proxyPort=80 -Dhttps.proxyHost=192.168.39.131 -Dhttps.proxyPort=80"
+
 
 WORKDIR /app
 
@@ -17,8 +24,15 @@ RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon --version
 
 COPY src ./src
 ENV HTTP_PROXY=http://192.168.39.131:80
+ENV http_proxy=http://192.168.39.131:80
 ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV https_proxy=http://192.168.39.131:80
 ENV NO_PROXY=localhost,127.0.0.1
+ENV no_proxy=localhost,127.0.0.1
+
+# 2) Make sure Gradle (JVM) also sees the proxy even if it ignores ~/.gradle
+ENV GRADLE_OPTS="-Dhttp.proxyHost=192.168.39.131 -Dhttp.proxyPort=80 -Dhttps.proxyHost=192.168.39.131 -Dhttps.proxyPort=80"
+
 RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon clean bootJar -x test
 
 ############################
@@ -41,6 +55,13 @@ EXPOSE 9090
 USER appuser:appuser
 
 ENV HTTP_PROXY=http://192.168.39.131:80
+ENV http_proxy=http://192.168.39.131:80
 ENV HTTPS_PROXY=http://192.168.39.131:80
+ENV https_proxy=http://192.168.39.131:80
 ENV NO_PROXY=localhost,127.0.0.1
+ENV no_proxy=localhost,127.0.0.1
+
+# 2) Make sure Gradle (JVM) also sees the proxy even if it ignores ~/.gradle
+ENV GRADLE_OPTS="-Dhttp.proxyHost=192.168.39.131 -Dhttp.proxyPort=80 -Dhttps.proxyHost=192.168.39.131 -Dhttps.proxyPort=80"
+
 ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar /app/app.jar"]
