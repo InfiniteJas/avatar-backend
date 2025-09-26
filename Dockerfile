@@ -9,6 +9,7 @@ WORKDIR /app
 
 COPY gradle/ gradle/
 COPY gradlew settings.gradle.kts build.gradle.kts ./
+COPY gradle.properties /app/.gradle/gradle.properties
 RUN chmod +x gradlew
 
 
