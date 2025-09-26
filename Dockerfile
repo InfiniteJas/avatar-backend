@@ -1,5 +1,7 @@
 FROM eclipse-temurin:21-jdk-jammy AS build
 
+RUN apk add --no-cache ca-certificates curl && update-ca-certificates
+
 ENV HTTP_PROXY=http://192.168.39.131:80
 ENV HTTPS_PROXY=http://192.168.39.131:80
 ENV NO_PROXY=localhost,127.0.0.1
@@ -32,6 +34,8 @@ RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon clean bootJar 
 ############################
 FROM eclipse-temurin:21-jre-jammy AS runtime
 WORKDIR /app
+
+RUN apk add --no-cache ca-certificates curl && update-ca-certificates
 
 # run as non-root
 RUN useradd --no-create-home --system --uid 10001 appuser
