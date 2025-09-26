@@ -34,7 +34,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
-//    implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 
     // database
@@ -64,9 +63,11 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.13")
     implementation("ch.qos.logback.contrib:logback-json-classic:0.1.5")
     implementation("ch.qos.logback.contrib:logback-jackson:0.1.5")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 
     implementation("org.springframework.boot:spring-boot-starter")
 
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 tasks.withType<Test> {
     useJUnitPlatform()

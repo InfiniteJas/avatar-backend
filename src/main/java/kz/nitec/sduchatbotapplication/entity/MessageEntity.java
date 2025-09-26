@@ -26,6 +26,9 @@ public class MessageEntity {
     @Column(length = 8000)
     private String content;
 
+    @Column(name = "run_id", nullable = true)
+    private String runId;
+
     private OffsetDateTime createdAt = OffsetDateTime.now();
 
     public enum Role { USER, ASSISTANT, SYSTEM }

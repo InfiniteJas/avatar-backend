@@ -23,4 +23,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="add-chats-column" author="aisen">
+        <addColumn tableName="chats">
+            <column name="thread_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

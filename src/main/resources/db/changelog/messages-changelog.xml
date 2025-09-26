@@ -34,4 +34,10 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="add-run_id-column" author="">
+        <addColumn tableName="messages">
+            <column name="run_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -25,17 +25,33 @@ server:
     use-relative-redirects: true
 
 chat:
-  base-url: ${CHAT_BASE_URL:https://nitec-ai.kz/api}        # OpenAI-compatible host
-  api-key:  ${CHAT_API_KEY:sk-196c1fe7e5be40b2b7b42bc235c49147}                        # Bearer <token>
-  model:    ${CHAT_MODEL:gpt-4o-mini}                       # Any OpenAI-compatible model id
-  timeout-ms: 30000
+  azure-openai-url: https://a-ass55.openai.azure.com/
+  azure-openai-key: FBx0qou5mQpzUs5cW4itbIk42WlgAj8TpmAjbw5uXPDhp5ckYg2QJQQJ99BIACHYHv6XJ3w3AAABACOGYhoG
+  assistant-id: asst_LMHsNblhuLgYt9I2RpMfm3Kr
 
-azure:
-  speech:
-    key: ${AZURE_SPEECH_KEY:FBx0qou5mQpzUs5cW4itbIk42WlgAj8TpmAjbw5uXPDhp5ckYg2QJQQJ99BIACHYHv6XJ3w3AAABACOGYhoG}
-    region: ${AZURE_SPEECH_REGION:westeurope}      # e.g., eastus, westeurope, etc.
-    # private endpoint support (optional) like in your JS (stt.speech.universal/v2 ws):
-    private-endpoint-enabled: ${AZURE_SPEECH_PRIVATE_ENDPOINT_ENABLED:false}
-    private-endpoint: ${AZURE_SPEECH_PRIVATE_ENDPOINT:https://a-ass55.openai.azure.com/}  # e.g., mycustresouce.cognitiveservices.azure.com
-    # CSV of candidate locales for auto language ID (like sttLocales in your JS)
-    locales: ${AZURE_SPEECH_LOCALES:en-US,ru-RU,kk-KZ}
+assistants:
+  api-version: "2024-05-01-preview"
+  endpoint: "${AZURE_OPENAI_ENDPOINT:https://a-ass55.openai.azure.com/}"
+  api-key: "${AZURE_OPENAI_API_KEY:FBx0qou5mQpzUs5cW4itbIk42WlgAj8TpmAjbw5uXPDhp5ckYg2QJQQJ99BIACHYHv6XJ3w3AAABACOGYhoG}"
+  assistant-id: "${AZURE_OPENAI_ASSISTANT_ID:asst_LMHsNblhuLgYt9I2RpMfm3Kr}"   # your assistant id
+  # poll config
+  poll:
+    initial-delay-ms: 800
+    interval-ms: 1500
+    timeout-ms: 60000
+
+  tools:
+    websearch:
+      provider: serpapi
+      serpapi:
+        api-key: "${SERPAPI_API_KEY:5b428af6a0a873bbd5d882ce73d5b2aa95e16db84fecebeef032ba7ea7fd47fb}"
+        hl: "ru"
+        gl: "ru"
+        results: 5
+    wren:
+      url: "${WREN_AI_URL:https://cloud.getwren.ai/api/v1/ask}"
+      token: "${WREN_API_TOKEN:sk-Q2nNDxNKzoH77Q}"
+      project-id: "${WREN_PROJECT_ID:10875}"
+    external:
+      url: "${NITEC_EXT_URL:https://nitec-ai.kz/api/chat/completions}"
+      token: "${NITEC_AI_BEARER_TOKEN:sk-196c1fe7e5be40b2b7b42bc235c49147}"
