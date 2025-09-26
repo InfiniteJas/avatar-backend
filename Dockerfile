@@ -12,14 +12,6 @@ COPY gradle/ gradle/
 COPY gradlew settings.gradle.kts build.gradle.kts ./
 RUN chmod +x gradlew
 
-RUN mkdir -p /root/.gradle && cat > /root/.gradle/gradle.properties <<EOF
-systemProp.http.proxyHost=192.168.39.131
-systemProp.http.proxyPort=80
-systemProp.https.proxyHost=192.168.39.131
-systemProp.https.proxyPort=80
-systemProp.http.nonProxyHosts=localhost|127.*|[::1]
-systemProp.https.nonProxyHosts=localhost|127.*|[::1]
-EOF
 
 RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon --version
 
@@ -35,7 +27,6 @@ RUN --mount=type=cache,target=/root/.gradle ./gradlew --no-daemon clean bootJar 
 FROM eclipse-temurin:21-jre-jammy AS runtime
 WORKDIR /app
 
-RUN apk add --no-cache ca-certificates curl && update-ca-certificates
 
 # run as non-root
 RUN useradd --no-create-home --system --uid 10001 appuser
